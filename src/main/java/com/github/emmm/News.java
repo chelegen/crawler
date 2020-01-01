@@ -37,5 +37,4 @@ public class News {
     public void setContent(String content) {
         this.content = content;
     }
-
 }
