@@ -24,6 +24,8 @@
  
  ## 
  
- > [数据库更改编码](https://www.google.com)：ALTER DATABASE {$数据库名} CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci; <br>
- > jdbc + ?characterEncoding=utf-8<br>
+ > [数据库更改编码](https://www.google.com)：
+ > 1. ALTER DATABASE {$数据库名} CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci; <br>
+ > 2. jdbc + ?characterEncoding=utf-8<br>
+ 
  > [数据库清空并重建](https://mathiasbynens.be/notes/mysql-utf8mb4)：mvn flyway:clean && mvn flyway:migrate
