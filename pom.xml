@@ -49,6 +49,11 @@
             <version>1.4.199</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -100,7 +105,7 @@
                 <executions>
                     <execution>
                         <id>spotbugs</id>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
