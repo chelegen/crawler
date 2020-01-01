@@ -4,7 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.sql.*;
 
-public class JdbcCrawlerDao implements CrawlerDao{
+public class JdbcCrawlerDao implements CrawlerDao {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
     private final Connection connection;
@@ -18,7 +18,7 @@ public class JdbcCrawlerDao implements CrawlerDao{
         }
     }
 
-    public String getNextLink(String sql) throws SQLException {
+    private String getNextLink(String sql) throws SQLException {
         ResultSet resultSet = null;
         try (PreparedStatement statement =
                      connection.prepareStatement(sql)) {
@@ -50,10 +50,10 @@ public class JdbcCrawlerDao implements CrawlerDao{
         }
     }
 
-    public void insertNewsIntoDatabase(String link, String title, String content) throws SQLException {
+    public void insertNewsIntoDatabase(String url, String title, String content) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(
                 "insert into news (URL,TITLE,CONTENT,CREATED_AT,MODIFIED_AT) values(?,?,?,now(),now())")) {
-            statement.setString(1, link);
+            statement.setString(1, url);
             statement.setString(2, title);
             statement.setString(3, content);
             statement.executeUpdate();
@@ -75,5 +75,15 @@ public class JdbcCrawlerDao implements CrawlerDao{
             }
         }
         return false;
+    }
+
+    @Override
+    public void insertProcessedLink(String link) throws SQLException {
+        updateDatabase(link, "INSERT INTO LINKS_ALREADY_PROCESSED (LINK) values ?");
+    }
+
+    @Override
+    public void insertLinkToBeProcessed(String link) throws SQLException {
+        updateDatabase(link, "INSERT INTO LINKS_TO_BE_PROCESSED (LINK) values ?");
     }
 }
