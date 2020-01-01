@@ -10,11 +10,11 @@
         DELETE FROM LINKS_TO_BE_PROCESSED WHERE LINK = #{link}
     </delete>
     <insert id="insertNews" parameterType="com.github.emmm.News">
-        insert into news (URL,TITLE,CONTENT,CREATED_AT,MODIFIED_AT)
+        insert into NEWS (URL,TITLE,CONTENT,CREATED_AT,MODIFIED_AT)
         values(#{url}, #{title}, #{content}, now(), now())
     </insert>
     <select id="countLink" parameterType="String" resultType="int">
-        SELECT count (LINK)
+        SELECT count(LINK)
         from LINKS_ALREADY_PROCESSED
         where LINK = #{link}
     </select>
@@ -29,6 +29,6 @@
             </otherwise>
         </choose>
         (link)
-        values #{link}
+        values (#{link})
     </insert>
 </mapper>
