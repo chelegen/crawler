@@ -28,7 +28,6 @@ public class MokeDataGenerator {
                     newsToBeInserted.setCreatedAt(currentTime);
                     newsToBeInserted.setModifiedAt(currentTime);
                     session.insert("com.github.emmm.MockMapper.insertNews", newsToBeInserted);
-                    System.out.println();
                 }
             } catch (Exception e) {
                 session.rollback();
