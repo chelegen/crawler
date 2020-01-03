@@ -11,7 +11,7 @@ public class Main {
         for (int i = 0; i < 8; i++) {
             threadPool.execute(new Crawler(dao));
         }
-        System.out.println("当前活动的线程数: " + ((ThreadPoolExecutor)threadPool).getActiveCount());
+        System.out.println("当前活动的线程数: " + ((ThreadPoolExecutor) threadPool).getActiveCount());
         threadPool.shutdown();
     }
 }

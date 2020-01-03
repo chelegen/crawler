@@ -1,6 +1,5 @@
 package com.github.emmm;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -23,7 +22,7 @@ public class MokeDataGenerator {
                 while (count-- > 0) {
                     int index = random.nextInt(currentNews.size());
                     News newsToBeInserted = currentNews.get(index);
-System.out.println();
+                    System.out.println();
                     Instant currentTime = newsToBeInserted.getCreatedAt();
                     currentTime = currentTime.minusSeconds(random.nextInt(3600 * 24 * 365));
                     newsToBeInserted.setCreatedAt(currentTime);
@@ -49,6 +48,6 @@ System.out.println();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        mockData(sqlSessionFactory,3000);
+        mockData(sqlSessionFactory, 3000);
     }
 }
