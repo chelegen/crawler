@@ -43,6 +43,7 @@ public class Crawler extends Thread {
                 }
             }
         } catch (Exception e) {
+            System.out.println(e);
             throw new RuntimeException(e);
         }
     }
