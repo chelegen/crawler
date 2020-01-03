@@ -10,19 +10,22 @@ public class News {
     private Instant createdAt;
     private Instant modifiedAt;
 
+    public News() {
+    }
+
     public News(String url, String title, String content) {
         this.url = url;
         this.title = title;
         this.content = content;
     }
 
-    public News(String url, String title, String content, Instant createdAt, Instant modifiedAt) {
-        this.id = id;
-        this.url = url;
-        this.title = title;
-        this.content = content;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
+    public News(News old) {
+        this.id = old.id;
+        this.url = old.url;
+        this.title = old.title;
+        this.content = old.content;
+        this.createdAt = old.createdAt;
+        this.modifiedAt = old.modifiedAt;
     }
 
     public Integer getId() {

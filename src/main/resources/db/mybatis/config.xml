@@ -11,9 +11,9 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://139.196.161.65:3306/crawler?characterEncoding=utf-8"/>
+                <property name="url" value="jdbc:mysql://192.168.217.10:3306/crawler?characterEncoding=utf-8"/>
                 <property name="username" value="root"/>
-                <property name="password" value="KeYpZrZx"/>
+                <property name="password" value="hadoop"/>
             </dataSource>
         </environment>
     </environments>

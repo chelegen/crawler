@@ -127,9 +127,9 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>5.2.4</version>
                 <configuration>
-                    <url>jdbc:mysql://139.196.161.65:3306/crawler?characterEncoding=utf-8</url>
+                    <url>jdbc:mysql://192.168.217.10:3306/crawler?characterEncoding=utf-8</url>
                     <user>root</user>
-                    <password>KeYpZrZx</password>
+                    <password>hadoop</password>
                 </configuration>
             </plugin>
         </plugins>
