@@ -16,19 +16,19 @@ public class MokeDataGenerator {
     private static void mockData(SqlSessionFactory sqlSessionFactory, int amount) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             List<News> currentNews = session.selectList("com.github.emmm.MockMapper.selectNews");
+            System.out.println();
             int count = amount - currentNews.size();
             Random random = new Random();
             try {
                 while (count-- > 0) {
                     int index = random.nextInt(currentNews.size());
                     News newsToBeInserted = currentNews.get(index);
-                    System.out.println();
                     Instant currentTime = newsToBeInserted.getCreatedAt();
                     currentTime = currentTime.minusSeconds(random.nextInt(3600 * 24 * 365));
                     newsToBeInserted.setCreatedAt(currentTime);
                     newsToBeInserted.setModifiedAt(currentTime);
-
                     session.insert("com.github.emmm.MockMapper.insertNews", newsToBeInserted);
+                    System.out.println();
                 }
             } catch (Exception e) {
                 session.rollback();

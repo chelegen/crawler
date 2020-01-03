@@ -5,7 +5,7 @@
 <mapper namespace="com.github.emmm.MockMapper">
     <insert id="insertNews" parameterType="com.github.emmm.News">
         insert into NEWS (url,title,content,created_at,modified_at)
-        values(#{url}, #{title}, #{content}, #{created_at}, #{modified_at})
+        values(#{url}, #{title}, #{content}, #{createdAt}, #{modifiedAt})
     </insert>
     <select id="selectNews" resultType="com.github.emmm.News">
         select url,title,content,created_at,modified_at
