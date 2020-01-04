@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 
 public class ElasticSearchEngine {
     public static void main(String[] args) throws IOException {
-        while(true){
+        while (true) {
             System.out.println("Please input a search keyword:");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -29,10 +29,10 @@ public class ElasticSearchEngine {
     private static void search(String keyword) throws IOException {
         try (RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("192.168.217.10", 9200, "http")))) {
             SearchRequest request = new SearchRequest("news");
-            request.source(new SearchSourceBuilder().query(new MultiMatchQueryBuilder(keyword,"title","content")));
+            request.source(new SearchSourceBuilder().query(new MultiMatchQueryBuilder(keyword, "title", "content")));
             SearchResponse search = client.search(request, RequestOptions.DEFAULT);
 
-            search.getHits().forEach(hit->System.out.println(hit.getSourceAsString()));
+            search.getHits().forEach(hit -> System.out.println(hit.getSourceAsString()));
         }
     }
 }
