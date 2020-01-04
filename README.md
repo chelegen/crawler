@@ -56,3 +56,55 @@ mysql> explain select id,title,created_at,modified_at from NEWS where modified_a
 1 row in set (0.00 sec)
 ```
 
+
+### ElasticSearch:
+- ####Realational DB :
+    - Databases
+        - Tables
+            - Rows
+                - Columns
+---
+- ### Elasticsearch: 
+    - Indices (Index)
+        - Documents (文档)
+            - Fields (字段)
+---
+
+```aidl
+{
+    count: 102000,
+    _shards: {
+    total: 1,
+    successful: 1,
+    skipped: 0,
+    failed: 0
+    }
+}
+```
+
+
+>默认Elasticsearch 在 _source 字段存储代表文档体的JSON字符串。
+
+##### http://localhost:9200/_cluster/health
+
+```aidl
+{
+cluster_name: "elasticsearch",
+status: "yellow",
+timed_out: false,
+number_of_nodes: 1,
+number_of_data_nodes: 1,
+active_primary_shards: 1,
+active_shards: 1,
+relocating_shards: 0,
+initializing_shards: 0,
+unassigned_shards: 1,
+delayed_unassigned_shards: 0,
+number_of_pending_tasks: 0,
+number_of_in_flight_fetch: 0,
+task_max_waiting_in_queue_millis: 0,
+active_shards_percent_as_number: 50
+}
+```
+
+
