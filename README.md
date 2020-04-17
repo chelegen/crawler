@@ -1,7 +1,7 @@
 # Multi-Threaded-Crawler
 [![CircleCI](https://circleci.com/gh/chelegen/crawler.svg?style=svg)](https://circleci.com/gh/chelegen/crawler)
 
->这是基于多线程的新闻爬虫，获取的数据搭配Elasticsearch实现一个简单的新闻搜索功能
+这是基于多线程的新闻爬虫，获取的数据搭配Elasticsearch实现一个简单的新闻搜索功能
 
 ## 多线程新闻爬虫
 使用Java编写爬虫，实现对[某浪新闻站](https://sina.cn)的HTTP请求、HTML解析的功能。筛选连接循环爬取新闻站内容，并存取到MySQL数据库且支持断点续传功能。
@@ -30,6 +30,10 @@ mvn flyway:migrate
 ```mvn verify```
 
 运行项目
+
+## 演示效果
+![](https://github.com/chelegen/crawler/blob/master/img/demo1.png)
+![](https://github.com/chelegen/crawler/blob/master/img/demo.png)
 
 ## 笔记
 
