@@ -1,31 +1,41 @@
-# 多线程爬虫和ElasticSearch
+# Multi-Threaded-Crawler
+[![CircleCI](https://circleci.com/gh/chelegen/crawler.svg?style=svg)](https://circleci.com/gh/chelegen/crawler)
 
-> 我们遇到什么困难也不要怕，微笑面对它，消除Bug的最好办法就是面对Bug，坚持！才是胜利~加油，奥利给！
+>这是基于多线程的新闻爬虫，获取的数据搭配Elasticsearch实现一个简单的新闻搜索功能
 
-## 1. 项目目标
-1. 爬取[sina新闻手机版](https://sina.cn)
-2. 使用数据库存储并分析
-3. 迁移ES
-4. 简单的搜索引擎
+## 多线程新闻爬虫
+使用Java编写爬虫，实现对[某浪新闻站](https://sina.cn)的HTTP请求、HTML解析的功能。筛选连接循环爬取新闻站内容，并存取到MySQL数据库且支持断点续传功能。
+- 使用Git进行版本迭代，小步提交PR至Github主分支，用Maven进行依赖包的管理，CircleCI进行自动化测试，在生命周期绑定CheckStyle、SpotBugs等插件保证代码的质量。
+- 使用Flyway数据库迁移工具完成数据库从H2数据库到MySQL数据库的迁移，并且完成数据库初始化数据表以及添加原始数据。用到了MyBatis来映射数据和Java对象的关系。对MySQL数据库进行了索引优化，使得百万级新闻内容优化了大约2倍的查询效率提升。
+- 采用多线程完成爬虫任务，提高爬取速度数倍。
 
-## 2. 笔记
-算法：
-- 广度优先算法
+## 搭配Elasticsearch实现新闻搜索引擎
+从MySQL灌数据，将数据存储到Elasticsearch，通过倒排索引实现了新闻搜索。
 
-流程：
+## How to build
+clone项目至本地
+```git clone https://github.com/chelegen/crawler.git``` <br>
+从Docker启动MySQL数据库：
+- [官方文档：如何使用Docker](https://docs.docker.com/get-started/)
+- [个人博客：Docker的使用](https://www.cnblogs.com/pipemm/p/12300761.html)
+```
+docker run --name mysql -v `pwd`/docker/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:8.0.18
+```
+数据库初始化
+- Flyway不支持自动创建数据库 (初始化的前提，必须有这个数据库)
+```
+mvn flyway:migrate
+```
+项目测试
+```mvn verify```
 
+运行项目
+
+## 笔记
+
+#### 流程：
 ![](img/flow.png)
 
-
-### Mybatis 和 MySql 相关:
-> ORM（Object Relational Mapping）框架
- 
- > [数据库更改编码](https://www.google.com)：
- > 1. ALTER DATABASE {$数据库名} CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci; <br>
- > 2. jdbc + ?characterEncoding=utf-8<br>
- 
- > [数据库清空并重建](https://mathiasbynens.be/notes/mysql-utf8mb4)：mvn flyway:clean && mvn flyway:migrate
- 
  #### 建立索引：
 ```$xslt
 mysql> CREATE INDEX create_at_index
@@ -53,58 +63,18 @@ mysql> explain select id,title,created_at,modified_at from NEWS where modified_a
 +----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
 |  1 | SIMPLE      | NEWS  | ALL  | NULL          | NULL | NULL    | NULL | 766827 | Using where |
 +----+-------------+-------+------+---------------+------+---------+------+--------+-------------+
-1 row in set (0.00 sec)
+1 row in set (15.36 sec)
 ```
 
 
-### ElasticSearch:
-- ####Realational DB :
+传统数据库和ElasticSearch的区别:
+- Realational DB :
     - Databases
         - Tables
             - Rows
                 - Columns
----
-- ### Elasticsearch: 
+- Elasticsearch: 
     - Indices (Index)
         - Documents (文档)
             - Fields (字段)
----
-
-```aidl
-{
-    count: 102000,
-    _shards: {
-    total: 1,
-    successful: 1,
-    skipped: 0,
-    failed: 0
-    }
-}
-```
-
-
->默认Elasticsearch 在 _source 字段存储代表文档体的JSON字符串。
-
-##### http://localhost:9200/_cluster/health
-
-```aidl
-{
-cluster_name: "elasticsearch",
-status: "yellow",
-timed_out: false,
-number_of_nodes: 1,
-number_of_data_nodes: 1,
-active_primary_shards: 1,
-active_shards: 1,
-relocating_shards: 0,
-initializing_shards: 0,
-unassigned_shards: 1,
-delayed_unassigned_shards: 0,
-number_of_pending_tasks: 0,
-number_of_in_flight_fetch: 0,
-task_max_waiting_in_queue_millis: 0,
-active_shards_percent_as_number: 50
-}
-```
-
 
